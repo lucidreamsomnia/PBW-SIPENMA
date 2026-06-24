@@ -1,1 +1,195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Dosen - SIPENMA</title>
 
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/dashboard.css">
+
+    <!-- ChartJS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <!-- SIDEBAR -->
+        <div class="col-md-2 sidebar">
+
+            <h3 class="text-center mb-4">
+                SIPENMA
+            </h3>
+
+            <ul class="nav flex-column">
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">
+                        <i class="bi bi-speedometer2"></i>
+                        Dashboard
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="mahasiswa.html">
+                        <i class="bi bi-people"></i>
+                        Mahasiswa
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="matakuliah.html">
+                        <i class="bi bi-book"></i>
+                        Mata Kuliah
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="nilai.html">
+                        <i class="bi bi-pencil-square"></i>
+                        Input Nilai
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="laporan.html">
+                        <i class="bi bi-file-earmark-text"></i>
+                        Rekap Nilai
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="statistik.html">
+                        <i class="bi bi-bar-chart"></i>
+                        Statistik
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="profile.html">
+                        <i class="bi bi-person"></i>
+                        Profil
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <!-- CONTENT -->
+        <div class="col-md-10">
+
+            <!-- HEADER -->
+            <div class="dashboard-header">
+
+                <h2>Dashboard Dosen</h2>
+
+                <p>
+                    Selamat datang di Sistem Pengolahan Nilai Mahasiswa
+                </p>
+
+            </div>
+
+            <!-- CARDS -->
+            <div class="row g-4">
+
+                <div class="col-md-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h6>Total Mahasiswa</h6>
+                            <h2 id="totalMahasiswa">340</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h6>Total Mata Kuliah</h6>
+                            <h2 id="totalMatkul">85</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h6>Kelas Aktif</h6>
+                            <h2 id="kelasAktif">25</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h6>Rata-rata Nilai</h6>
+                            <h2 id="rataNilai">83.4</h2>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CHARTS -->
+            <div class="row mt-4">
+
+                <div class="col-md-6">
+
+                    <div class="card shadow-sm">
+
+                        <div class="card-body">
+
+                            <h5>Status Kelulusan</h5>
+
+                            <canvas id="kelulusanChart"></canvas>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="card shadow-sm">
+
+                        <div class="card-body">
+
+                            <h5>Rata-rata Nilai Mata Kuliah</h5>
+
+                            <canvas id="matkulChart"></canvas>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom JS -->
+<script src="../js/dashboard.js"></script>
+
+</body>
+</html>
