@@ -1,11 +1,25 @@
 body{
     background-color:#f5f6fa;
+    overflow-x:hidden;
 }
 
 .sidebar{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:250px;
+
+    height:100vh;
+
     background:#0d6efd;
-    min-height:100vh;
+
     padding-top:20px;
+
+    overflow-y:auto;
+
 }
 
 .sidebar h3{
@@ -28,5 +42,17 @@ body{
 }
 
 .card{
+
     border:none;
+
+    border-radius:15px;
+
+}
+
+.main-content{
+
+    margin-left:250px;
+
+    padding:20px;
+
 }
