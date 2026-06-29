@@ -1,1 +1,15 @@
-# TODO
+# ADMIN
+
+POST
+
+PUT
+
+DELETE
+
+
+
+# DOSEN
+
+GET
+
+GET BY ID
