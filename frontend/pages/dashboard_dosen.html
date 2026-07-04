@@ -4,193 +4,142 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Dosen - SIPENMA</title>
-
-    <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-
-    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../css/dashboard.css">
-
-    <!-- ChartJS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
 <body>
 
-<div class="container-fluid">
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <div class="sidebar-brand">SIPENMA</div>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link active" href="dashboard_dosen.html">
+                <span class="link-left"><img src="../assets/icons/dashboard_sidebar_icon.png" class="sidebar-icon" alt=""> Dashboard</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="mahasiswa_dosen.html">
+                <span class="link-left"><img src="../assets/icons/mahasiswa_sidebar_icon.png" class="sidebar-icon" alt=""> Mahasiswa</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="matakuliah_dosen.html">
+                <span class="link-left"><img src="../assets/icons/matakuliah_sidebar_icon.png" class="sidebar-icon" alt=""> Mata Kuliah</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="nilai.html">
+                <span class="link-left"><img src="../assets/icons/inputnilai_sidebar_icon.png" class="sidebar-icon" alt=""> Input Nilai</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="rekap_nilai.html">
+                <span class="link-left"><img src="../assets/icons/rekapnilai_sidebar_icon.png" class="sidebar-icon" alt=""> Rekap Nilai</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="statistik.html">
+                <span class="link-left"><img src="../assets/icons/rekapnilai_sidebar_icon.png" class="sidebar-icon" alt=""> Statistik</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="profile_dosen.html">
+                <span class="link-left"><img src="../assets/icons/profile_sidebar_icon.png" class="sidebar-icon" alt=""> Profile</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+    </ul>
+    <div class="sidebar-logout">
+        <a class="nav-link" href="../pages/login.html" id="logoutBtn">
+            <span class="link-left"><img src="../assets/icons/logout_sidebar_icon.png" class="sidebar-icon" alt=""> Logout</span>
+            <i class="bi bi-chevron-right"></i>
+        </a>
+    </div>
+</div>
 
-    <div class="row">
-
-        <!-- SIDEBAR -->
-        <div class="col-md-2 sidebar">
-
-            <h3 class="text-center mb-4">
-                SIPENMA
-            </h3>
-
-            <ul class="nav flex-column">
-
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">
-                        <i class="bi bi-speedometer2"></i>
-                        Dashboard
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="mahasiswa.html">
-                        <i class="bi bi-people"></i>
-                        Mahasiswa
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="matakuliah.html">
-                        <i class="bi bi-book"></i>
-                        Mata Kuliah
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="nilai.html">
-                        <i class="bi bi-pencil-square"></i>
-                        Input Nilai
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="laporan.html">
-                        <i class="bi bi-file-earmark-text"></i>
-                        Rekap Nilai
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="statistik.html">
-                        <i class="bi bi-bar-chart"></i>
-                        Statistik
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="profile.html">
-                        <i class="bi bi-person"></i>
-                        Profil
-                    </a>
-                </li>
-
-            </ul>
-
+<!-- TOPBAR -->
+<div class="topbar">
+    <div class="topbar-user">
+        <img src="../assets/images/avatar.png" alt="Avatar" onerror="this.src='https://ui-avatars.com/api/?name=Dosen&background=5b8dee&color=fff'">
+        <div>
+            <div class="user-name" id="topbarName">Dosen</div>
+            <div class="user-role">Dosen</div>
         </div>
+    </div>
+    <div class="topbar-actions">
+        <button class="icon-btn">
+            <i class="bi bi-envelope-fill"></i>
+            <span class="badge-dot"></span>
+        </button>
+        <button class="icon-btn">
+            <i class="bi bi-gear-fill"></i>
+        </button>
+    </div>
+</div>
 
-        <!-- CONTENT -->
-        <!-- CONTENT -->
-        <div class="col-md-10 main-content">
+<!-- MAIN CONTENT -->
+<div class="main-content">
 
-            <!-- HEADER -->
-            <div class="dashboard-header">
-
-                <h2>Dashboard Dosen</h2>
-
-                <p>
-                    Selamat datang di Sistem Pengolahan Nilai Mahasiswa
-                </p>
-
+    <!-- STAT CARDS -->
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="stat-card stat-purple">
+                <div class="stat-label">Total Mahasiswa</div>
+                <div class="stat-value" id="totalMahasiswa">340</div>
+                <i class="bi bi-people stat-icon"></i>
             </div>
-
-            <!-- CARDS -->
-            <div class="row g-4">
-
-                <div class="col-md-3">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h6>Total Mahasiswa</h6>
-                            <h2 id="totalMahasiswa">340</h2>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h6>Total Mata Kuliah</h6>
-                            <h2 id="totalMatkul">85</h2>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h6>Kelas Aktif</h6>
-                            <h2 id="kelasAktif">25</h2>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h6>Rata-rata Nilai</h6>
-                            <h2 id="rataNilai">83.4</h2>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- CHARTS -->
-            <div class="row mt-4">
-
-                <div class="col-md-6">
-
-                    <div class="card shadow-sm">
-
-                        <div class="card-body">
-
-                            <h5>Status Kelulusan</h5>
-
-                            <canvas id="kelulusanChart"></canvas>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-6">
-
-                    <div class="card shadow-sm">
-
-                        <div class="card-body">
-
-                            <h5>Rata-rata Nilai Mata Kuliah</h5>
-
-                            <canvas id="matkulChart"></canvas>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
         </div>
+        <div class="col-6 col-md-3">
+            <div class="stat-card stat-orange">
+                <div class="stat-label">Total Mata Kuliah</div>
+                <div class="stat-value" id="totalMatkul">85</div>
+                <i class="bi bi-book stat-icon"></i>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="stat-card stat-green">
+                <div class="stat-label">Kelas Aktif</div>
+                <div class="stat-value" id="kelasAktif">25</div>
+                <i class="bi bi-mortarboard stat-icon"></i>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="stat-card stat-blue">
+                <div class="stat-label">Rata-rata IPK</div>
+                <div class="stat-value" id="rataNilai">3.40</div>
+                <i class="bi bi-clipboard-data stat-icon"></i>
+            </div>
+        </div>
+    </div>
 
+    <!-- CHARTS -->
+    <div class="row g-3">
+        <div class="col-md-5">
+            <div class="card p-3">
+                <h6 class="fw-bold mb-3">Status Kelulusan</h6>
+                <canvas id="kelulusanChart" height="220"></canvas>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="card p-3">
+                <h6 class="fw-bold mb-3">Rata-rata Nilai per Mata Kuliah</h6>
+                <canvas id="matkulChart" height="220"></canvas>
+            </div>
+        </div>
     </div>
 
 </div>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Custom JS -->
-<script src="../js/dashboard.js"></script>
-
+<script src="../js/dashboard_dosen.js"></script>
 </body>
 </html>

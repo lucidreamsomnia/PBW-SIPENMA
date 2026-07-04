@@ -8,13 +8,14 @@ document.getElementById('logoutBtn').addEventListener('click', (e) => {
 });
 
 const sampleData = [
-    { kode: 'IF101', nama: 'Algoritma dan Pemrograman', sks: 3, dosen: 'Dr. Ahmad Subagyo',    semester: 1 },
-    { kode: 'IF102', nama: 'Basis Data',                sks: 3, dosen: 'Prof. Siti Aminah',    semester: 3 },
-    { kode: 'IF103', nama: 'Jaringan Komputer',         sks: 3, dosen: 'Dr. Budi Raharja',     semester: 4 },
-    { kode: 'IF104', nama: 'Pengembangan Web',          sks: 4, dosen: 'M. Rizki, M.Kom',      semester: 5 },
-    { kode: 'IF105', nama: 'Pemrograman Mobile',        sks: 3, dosen: 'Dewi Lestari, S.Kom',  semester: 6 },
-    { kode: 'IF106', nama: 'Kecerdasan Buatan',         sks: 3, dosen: 'Dr. Hendra Wijaya',    semester: 5 },
-    { kode: 'IF107', nama: 'Keamanan Jaringan',         sks: 3, dosen: 'Prof. Eko Prasetyo',   semester: 6 },
+    { nim: '2021001', nama: 'Ahmad Fauzi',    jurusan: 'Teknik Informatika', angkatan: 2021, email: 'ahmad@email.com' },
+    { nim: '2021002', nama: 'Siti Nurhaliza', jurusan: 'Sistem Informasi',   angkatan: 2021, email: 'siti@email.com' },
+    { nim: '2021003', nama: 'Budi Santoso',   jurusan: 'Teknik Informatika', angkatan: 2021, email: 'budi@email.com' },
+    { nim: '2022001', nama: 'Dewi Lestari',   jurusan: 'Teknik Komputer',    angkatan: 2022, email: 'dewi@email.com' },
+    { nim: '2022002', nama: 'Rizky Ramadhan', jurusan: 'Sistem Informasi',   angkatan: 2022, email: 'rizky@email.com' },
+    { nim: '2022003', nama: 'Andi Pratama',   jurusan: 'Teknik Informatika', angkatan: 2022, email: 'andi@email.com' },
+    { nim: '2023001', nama: 'Rina Wulandari', jurusan: 'Sistem Informasi',   angkatan: 2023, email: 'rina@email.com' },
+    { nim: '2023002', nama: 'Fajar Nugroho',  jurusan: 'Teknik Komputer',    angkatan: 2023, email: 'fajar@email.com' },
 ];
 
 const PAGE_SIZE = 5;
@@ -24,13 +25,13 @@ let filtered = [...sampleData];
 function renderTable() {
     const start = (currentPage - 1) * PAGE_SIZE;
     const rows = filtered.slice(start, start + PAGE_SIZE);
-    document.getElementById('matkulTable').innerHTML = rows.map(m => `
+    document.getElementById('mahasiswaTable').innerHTML = rows.map(m => `
         <tr>
-            <td>${m.kode}</td>
+            <td>${m.nim}</td>
             <td>${m.nama}</td>
-            <td>${m.sks}</td>
-            <td>${m.dosen}</td>
-            <td>${m.semester}</td>
+            <td>${m.jurusan}</td>
+            <td>${m.angkatan}</td>
+            <td>${m.email}</td>
         </tr>
     `).join('') || '<tr><td colspan="5" class="text-center text-muted py-3">Tidak ada data</td></tr>';
 }
@@ -55,9 +56,7 @@ function goPage(p) {
 document.getElementById('searchInput').addEventListener('input', (e) => {
     const q = e.target.value.toLowerCase();
     filtered = sampleData.filter(m =>
-        m.kode.toLowerCase().includes(q) ||
-        m.nama.toLowerCase().includes(q) ||
-        m.dosen.toLowerCase().includes(q)
+        m.nim.includes(q) || m.nama.toLowerCase().includes(q) || m.jurusan.toLowerCase().includes(q)
     );
     currentPage = 1;
     renderTable();

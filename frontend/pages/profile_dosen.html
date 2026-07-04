@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Dosen - SIPENMA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/form.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <div class="sidebar-brand">SIPENMA</div>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link" href="dashboard_dosen.html">
+                <span class="link-left"><img src="../assets/icons/dashboard_sidebar_icon.png" class="sidebar-icon" alt=""> Dashboard</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="mahasiswa_dosen.html">
+                <span class="link-left"><img src="../assets/icons/mahasiswa_sidebar_icon.png" class="sidebar-icon" alt=""> Mahasiswa</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="matakuliah_dosen.html">
+                <span class="link-left"><img src="../assets/icons/matakuliah_sidebar_icon.png" class="sidebar-icon" alt=""> Mata Kuliah</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="nilai.html">
+                <span class="link-left"><img src="../assets/icons/inputnilai_sidebar_icon.png" class="sidebar-icon" alt=""> Input Nilai</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="rekap_nilai.html">
+                <span class="link-left"><img src="../assets/icons/rekapnilai_sidebar_icon.png" class="sidebar-icon" alt=""> Rekap Nilai</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="statistik.html">
+                <span class="link-left"><img src="../assets/icons/rekapnilai_sidebar_icon.png" class="sidebar-icon" alt=""> Statistik</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="profile_dosen.html">
+                <span class="link-left"><img src="../assets/icons/profile_sidebar_icon.png" class="sidebar-icon" alt=""> Profile</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+    </ul>
+    <div class="sidebar-logout">
+        <a class="nav-link" href="../pages/login.html" id="logoutBtn">
+            <span class="link-left"><img src="../assets/icons/logout_sidebar_icon.png" class="sidebar-icon" alt=""> Logout</span>
+            <i class="bi bi-chevron-right"></i>
+        </a>
+    </div>
+</div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+    <div class="topbar-user">
+        <img src="../assets/images/avatar.png" alt="Avatar" id="topbarAvatar"
+             onerror="this.src='https://ui-avatars.com/api/?name=Dosen&background=5b8dee&color=fff'">
+        <div>
+            <div class="user-name" id="topbarName">Dosen</div>
+            <div class="user-role">Dosen</div>
+        </div>
+    </div>
+    <div class="topbar-actions">
+        <button class="icon-btn"><i class="bi bi-envelope-fill"></i><span class="badge-dot"></span></button>
+        <button class="icon-btn"><i class="bi bi-gear-fill"></i></button>
+    </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+    <div class="row g-3">
+
+        <!-- Profile Info -->
+        <div class="col-md-4">
+            <div class="form-card text-center">
+                <img src="../assets/images/avatar.png" alt="Avatar" class="avatar-circle mb-3"
+                     id="profileAvatar"
+                     onerror="this.src='https://ui-avatars.com/api/?name=Dosen&background=5b8dee&color=fff&size=90'">
+                <h5 class="fw-bold mb-1" id="profileName">Dosen</h5>
+                <p class="text-muted mb-1" id="profileNIDN">NIDN: -</p>
+                <p class="text-muted mb-0" id="profileProdi">Prodi: -</p>
+            </div>
+        </div>
+
+        <!-- Edit Profile -->
+        <div class="col-md-8">
+            <div class="form-card mb-3">
+                <div class="section-title mb-3">Edit Profil</div>
+                <div id="profileAlert"></div>
+                <form id="profileForm">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-control" id="inputNama" placeholder="Nama lengkap">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">NIDN</label>
+                            <input type="text" class="form-control" id="inputNIDN" placeholder="NIDN">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">No. Telepon</label>
+                            <input type="text" class="form-control" id="inputTelp" placeholder="No. Telepon">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Program Studi</label>
+                            <input type="text" class="form-control" id="inputProdi" placeholder="Program Studi">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Jabatan</label>
+                            <input type="text" class="form-control" id="inputJabatan" placeholder="Jabatan">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-save mt-3">
+                        <i class="bi bi-floppy me-2"></i>Simpan Perubahan
+                    </button>
+                </form>
+            </div>
+
+            <!-- Change Password -->
+            <div class="form-card">
+                <div class="section-title mb-3">Ganti Password</div>
+                <div id="pwAlert"></div>
+                <form id="pwForm">
+                    <div class="mb-3">
+                        <label class="form-label">Password Lama</label>
+                        <input type="password" class="form-control" id="pwLama" placeholder="Password lama">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password Baru</label>
+                        <input type="password" class="form-control" id="pwBaru" placeholder="Password baru">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Konfirmasi Password</label>
+                        <input type="password" class="form-control" id="pwKonfirmasi" placeholder="Ulangi password baru">
+                    </div>
+                    <button type="submit" class="btn-save">
+                        <i class="bi bi-lock me-2"></i>Ganti Password
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/profile_dosen.js"></script>
+</body>
+</html>
