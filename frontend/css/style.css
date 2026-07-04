@@ -1,1 +1,137 @@
-/* TODO */
+body {
+    background: #5b8dee;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.login-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    width: 100%;
+    max-width: 1100px;
+    padding: 24px;
+}
+
+.login-illustration {
+    flex: 1;
+    max-width: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-illustration img {
+    width: 100%;
+    max-width: 440px;
+}
+
+.login-card {
+    background: #fff;
+    border-radius: 20px;
+    width: 380px;
+    min-width: 320px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+}
+
+.login-card-header {
+    background: #2563eb;
+    padding: 32px 24px 24px 24px;
+    text-align: center;
+    color: #fff;
+}
+
+.login-card-header .logo-circle {
+    width: 60px;
+    height: 60px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px auto;
+    font-size: 1.8rem;
+}
+
+.login-card-header h4 {
+    font-weight: 800;
+    font-size: 1.4rem;
+    margin: 0 0 4px 0;
+}
+
+.login-card-header p {
+    font-size: 0.85rem;
+    opacity: 0.85;
+    margin: 0;
+}
+
+.login-card-body {
+    padding: 28px 28px 24px 28px;
+}
+
+.login-card-body .form-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.login-card-body .form-control {
+    border-radius: 10px;
+    border: 1.5px solid #d0d8e8;
+    padding: 11px 14px;
+    font-size: 0.95rem;
+}
+
+.login-card-body .form-control:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+}
+
+.input-group .btn-eye {
+    border: 1.5px solid #d0d8e8;
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+    background: #fff;
+    color: #888;
+}
+
+.btn-login {
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 0;
+    font-size: 1rem;
+    font-weight: 600;
+    width: 100%;
+    margin-top: 8px;
+    transition: background 0.15s;
+}
+
+.btn-login:hover {
+    background: #1a4fc4;
+    color: #fff;
+}
+
+.forgot-link {
+    display: block;
+    text-align: center;
+    margin-top: 14px;
+    color: #2563eb;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .login-illustration { display: none; }
+    .login-wrapper { justify-content: center; }
+}
