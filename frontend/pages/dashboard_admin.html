@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - SIPENMA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <div class="sidebar-brand">SIPENMA</div>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link active" href="dashboard_admin.html">
+                <span class="link-left"><img src="../assets/icons/dashboard_sidebar_icon.png" class="sidebar-icon" alt=""> Dashboard</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="mahasiswa_admin.html">
+                <span class="link-left"><img src="../assets/icons/mahasiswa_sidebar_icon.png" class="sidebar-icon" alt=""> Mahasiswa</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="matakuliah_admin.html">
+                <span class="link-left"><img src="../assets/icons/matakuliah_sidebar_icon.png" class="sidebar-icon" alt=""> Mata Kuliah</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="pengguna.html">
+                <span class="link-left"><img src="../assets/icons/profile_sidebar_icon.png" class="sidebar-icon" alt=""> Pengguna</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="profile_admin.html">
+                <span class="link-left"><img src="../assets/icons/profile_sidebar_icon.png" class="sidebar-icon" alt=""> Profile</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+    </ul>
+    <div class="sidebar-logout">
+        <a class="nav-link" href="../pages/login.html" id="logoutBtn">
+            <span class="link-left"><img src="../assets/icons/logout_sidebar_icon.png" class="sidebar-icon" alt=""> Logout</span>
+            <i class="bi bi-chevron-right"></i>
+        </a>
+    </div>
+</div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+    <div class="topbar-user">
+        <img src="../assets/images/avatar.png" alt="Avatar" onerror="this.src='https://ui-avatars.com/api/?name=Admin&background=5b8dee&color=fff'">
+        <div>
+            <div class="user-name" id="topbarName">Admin</div>
+            <div class="user-role">Admin</div>
+        </div>
+    </div>
+    <div class="topbar-actions">
+        <button class="icon-btn">
+            <i class="bi bi-envelope-fill"></i>
+            <span class="badge-dot"></span>
+        </button>
+        <button class="icon-btn">
+            <i class="bi bi-gear-fill"></i>
+        </button>
+    </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+
+    <!-- STAT CARDS -->
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="stat-card stat-purple">
+                <div class="stat-label">Total Mahasiswa</div>
+                <div class="stat-value" id="totalMahasiswa">0</div>
+                <i class="bi bi-people stat-icon"></i>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="stat-card stat-orange">
+                <div class="stat-label">Total Mata Kuliah</div>
+                <div class="stat-value" id="totalMatkul">0</div>
+                <i class="bi bi-book stat-icon"></i>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="stat-card stat-green">
+                <div class="stat-label">Total Pengguna</div>
+                <div class="stat-value" id="totalPengguna">0</div>
+                <i class="bi bi-person-badge stat-icon"></i>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="stat-card stat-blue">
+                <div class="stat-label">Kelas Aktif</div>
+                <div class="stat-value" id="kelasAktif">0</div>
+                <i class="bi bi-mortarboard stat-icon"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHARTS -->
+    <div class="row g-3 mb-3">
+        <div class="col-md-5">
+            <div class="card p-3">
+                <h6 class="fw-bold mb-3">Status Mahasiswa</h6>
+                <canvas id="statusMahasiswaChart" height="220"></canvas>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="card p-3">
+                <h6 class="fw-bold mb-3">Pengguna per Role</h6>
+                <canvas id="penggunaRoleChart" height="220"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- RECENT ACTIVITIES -->
+    <div class="card p-3">
+        <h6 class="fw-bold mb-3">Aktivitas Terbaru</h6>
+        <div class="table-responsive">
+            <table class="table mb-0">
+                <thead style="background:#b8d0f8;">
+                    <tr>
+                        <th>Aktivitas</th>
+                        <th>Waktu</th>
+                    </tr>
+                </thead>
+                <tbody id="activityTable">
+                    <tr>
+                        <td colspan="2" class="text-center text-muted py-3">Memuat data...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/dashboard_admin.js"></script>
+</body>
+</html>
