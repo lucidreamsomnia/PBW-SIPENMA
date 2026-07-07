@@ -1,4 +1,6 @@
 # backend/app/main.py
+import backend.app.models
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.app.routes import nilai, whatsapp, statistik, mahasiswa, matakuliah, admin_dashboard, pengguna

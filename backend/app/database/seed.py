@@ -1,7 +1,7 @@
 from datetime import date
 
-from app.database.session import SessionLocal
-from app.models import (
+from backend.app.database.connection import SessionLocal
+from backend.app.models import (
 	Dosen,
 	Grade,
 	Mahasiswa,

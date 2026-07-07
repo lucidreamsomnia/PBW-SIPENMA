@@ -1,7 +1,7 @@
 from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, Numeric, String, func
 from sqlalchemy.orm import relationship
 
-from app.database.base import Base
+from backend.app.database.connection import Base
 
 
 class KomponenNilai(Base):

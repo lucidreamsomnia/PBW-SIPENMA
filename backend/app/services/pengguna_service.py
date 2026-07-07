@@ -23,7 +23,6 @@ def _serialize(row):
 		"email": user.email,
 		"status_aktif": bool(user.status_aktif),
 		"nama_role": role.nama_role if role else None,
-		"deskripsi_role": role.deskripsi if role else None,
 		"created_at": user.created_at,
 		"updated_at": user.updated_at,
 	}
@@ -160,6 +159,9 @@ def update_pengguna(db: Session, pengguna_id: int, data: PenggunaUpdate):
 	updates = data.model_dump(exclude_unset=True)
 	password = updates.pop("password", None)
 	if password:
+		print(password)
+		print(type(password))
+		print(len(password))
 		updates["password_hash"] = hash_password(password)
 
 	for field, value in updates.items():
