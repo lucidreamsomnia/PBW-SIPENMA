@@ -1,30 +1,23 @@
-from sqlalchemy import Column, Integer, String, text
-from sqlalchemy.dialects.mysql import ENUM, TIMESTAMP, TINYINT
+from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String, func
+from sqlalchemy.orm import relationship
 
-from backend.app.database.connection import Base
+from app.database.base import Base
 
 
 class MataKuliah(Base):
-    __tablename__ = "mata_kuliah"
+	__tablename__ = "mata_kuliah"
 
-    id_mk = Column(Integer, primary_key=True, autoincrement=True)
-    kode_mk = Column(String(20), nullable=False, unique=True)
-    nama_mk = Column(String(120), nullable=False)
-    sks = Column(TINYINT, nullable=False)
-    semester_rekomendasi = Column(TINYINT, nullable=True)
-    status_mk = Column(
-        ENUM("Aktif", "Nonaktif"),
-        nullable=True,
-        server_default=text("'Aktif'"),
-    )
-    created_at = Column(
-        TIMESTAMP,
-        nullable=False,
-        server_default=text("CURRENT_TIMESTAMP"),
-    )
-    updated_at = Column(
-        TIMESTAMP,
-        nullable=False,
-        server_default=text("CURRENT_TIMESTAMP"),
-        server_onupdate=text("CURRENT_TIMESTAMP"),
-    )
+	id_matakuliah = Column(Integer, primary_key=True, autoincrement=True)
+	id_program_studi = Column(Integer, ForeignKey("program_studi.id_program_studi"), nullable=False)
+	kode_mk = Column(String(20), unique=True, nullable=False, index=True)
+	nama_matakuliah = Column(String(100), nullable=False)
+	sks = Column(Integer, nullable=False)
+	semester = Column(Integer, nullable=False)
+	jenis_mk = Column(String(30), nullable=True)
+	status_aktif = Column(Boolean, nullable=False, default=True)
+	created_at = Column(DateTime, nullable=False, server_default=func.now())
+	updated_at = Column(DateTime, nullable=False, server_default=func.now(), onupdate=func.now())
+
+	program_studi = relationship("ProgramStudi", back_populates="matakuliah")
+	kelas = relationship("Kelas", back_populates="matakuliah")
+	komponen_nilai = relationship("KomponenNilai", back_populates="matakuliah")
