@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:8000';
+const API_BASE = 'http://127.0.0.1:8000';
 
 const user = JSON.parse(localStorage.getItem('user') || '{}');
 if (user.nama) document.getElementById('topbarName').textContent = user.nama;

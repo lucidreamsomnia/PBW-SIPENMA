@@ -59,7 +59,7 @@ document.getElementById('simpanBtn').addEventListener('click', async () => {
     const nilai_akhir = (tugas * 0.3 + uts * 0.3 + uas * 0.4).toFixed(2);
 
     try {
-        const res = await fetch('http://localhost:8000/nilai', {
+        const res = await fetch('http://127.0.0.1:8000/nilai', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
