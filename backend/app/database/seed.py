@@ -261,19 +261,22 @@ def seed_data() -> None:
 
 		grades = [
 			("A", 85, 100, 4.00, "Sangat Baik"),
-			("AB", 80, 84, 3.50, "Baik Sekali"),
-			("B", 70, 79, 3.00, "Baik"),
-			("BC", 65, 69, 2.50, "Lebih dari Cukup"),
-			("C", 60, 64, 2.00, "Cukup"),
-			("D", 50, 59, 1.00, "Kurang"),
-			("E", 0, 49, 0.00, "Sangat Kurang"),
+			("A-", 80, 84.99, 3.75, "Baik Sekali"),
+			("B+", 75, 79.99, 3.50, "Baik"),
+			("B", 70, 74.99, 3.00, "Baik"),
+			("B-", 65, 69.99, 2.75, "Cukup"),
+			("C+", 60, 64.99, 2.50, "Cukup"),
+			("C", 55, 59.99, 2.00, "Kurang"),
+			("D", 40, 54.99, 1.00, "Sangat Kurang"),
+			("E", 0, 39.99, 0.00, "Gagal"),
+			]
 		]
 
-		for kode_grade, nilai_min, nilai_max, bobot, keterangan in grades:
+		for nama_grade, nilai_min, nilai_max, bobot, keterangan in grades:
 			get_or_create(
 				session,
 				Grade,
-				kode_grade=kode_grade,
+				nama_grade=nama_grade,
 				defaults={
 					"nilai_min": nilai_min,
 					"nilai_max": nilai_max,

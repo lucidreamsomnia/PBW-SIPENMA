@@ -8,7 +8,7 @@ class Grade(Base):
     __tablename__ = "grade"
 
     id_grade = Column(Integer, primary_key=True, autoincrement=True)
-    kode_grade = Column(String(5), unique=True, nullable=False, index=True)
+    nama_grade = Column(String(5), unique=True, nullable=False, index=True)
     nilai_min = Column(Numeric(5, 2), nullable=False)
     nilai_max = Column(Numeric(5, 2), nullable=False)
     bobot = Column(Numeric(5, 2), nullable=False)

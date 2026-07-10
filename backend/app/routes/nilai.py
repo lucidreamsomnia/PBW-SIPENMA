@@ -13,8 +13,19 @@ def read_all_nilai(db: Session = Depends(get_db)):
     return nilai_service.get_all_nilai(db)
 
 @router.post("/", response_model=NilaiResponse)
-def input_nilai(nilai_data: NilaiCreate, db: Session = Depends(get_db)):
-    return nilai_service.create_nilai(db, nilai_data)
+def input_nilai(
+    nilai_data: NilaiCreate,
+    db: Session = Depends(get_db)
+):
+    created = nilai_service.create_nilai(db, nilai_data)
+
+    if not created:
+        raise HTTPException(
+            status_code=400,
+            detail="Data nilai gagal ditambahkan."
+        )
+
+    return created
 
 @router.put("/{nilai_id}", response_model=NilaiResponse)
 def edit_nilai(nilai_id: int, nilai_data: NilaiUpdate, db: Session = Depends(get_db)):

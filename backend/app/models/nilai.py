@@ -1,5 +1,6 @@
 from sqlalchemy import Column, DateTime, ForeignKey, Integer, Numeric, String, Text, func
 from sqlalchemy.orm import relationship
+from sqlalchemy import Boolean
 
 from backend.app.database.connection import Base
 
@@ -11,8 +12,7 @@ class Nilai(Base):
     id_krs = Column(Integer, ForeignKey("krs.id_krs"), nullable=False, unique=True)
     id_grade = Column(Integer, ForeignKey("grade.id_grade"), nullable=False)
     nilai_akhir = Column(Numeric(5, 2), nullable=False)
-    predikat = Column(String(20), nullable=True)
-    catatan = Column(Text, nullable=True)
+    status_publish = Column(Integer, nullable=False, default=0)
     created_at = Column(DateTime, nullable=False, server_default=func.now())
     updated_at = Column(DateTime, nullable=False, server_default=func.now(), onupdate=func.now())
 
