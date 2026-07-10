@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.app.routes import (
     auth,
+    krs,
     nilai,
     whatsapp,
     statistik,
@@ -30,6 +31,7 @@ app.add_middleware(
 
 # Daftarkan semua route yang telah dibuat
 app.include_router(auth.router)
+app.include_router(krs.router)
 app.include_router(nilai.router)
 app.include_router(whatsapp.router)
 app.include_router(statistik.router)

@@ -35,35 +35,52 @@ def get_nilai_by_krs(db: Session, id_krs: int):
 def create_nilai(db: Session, data: NilaiCreate):
     # Pastikan KRS ada
     krs = db.query(KRS).filter(KRS.id_krs == data.id_krs).first()
+    print("KRS :", krs)
+    
     if not krs:
+        print("KRS tidak ditemukan")
         return None
-
-    # Pastikan satu KRS hanya memiliki satu nilai
-    existing = db.query(Nilai).filter(Nilai.id_krs == data.id_krs).first()
+    
+    existing = db.query(Nilai).filter(
+         Nilai.id_krs == data.id_krs
+         ).first()
+    
+    print("Existing :", existing)
+    
     if existing:
+        print("Nilai sudah ada")
         return None
-
-    # Hitung nilai akhir
+    
     nilai_akhir = hitung_nilai_akhir(
         data.tugas,
         data.uts,
-        data.uas,
+        data.uas
     )
-
-    # Ambil grade dari database
+    
+    print("Nilai akhir :", nilai_akhir)
+    
     grade = get_grade(db, nilai_akhir)
+    
+    print("Grade :", grade)
+    
     if not grade:
+        print("Grade tidak ditemukan")
         return None
 
-    # Simpan ke tabel nilai
     nilai = Nilai(
         id_krs=data.id_krs,
-        id_grade=grade.id_grade,
         nilai_akhir=nilai_akhir,
+        id_grade=grade.id_grade,
+        status_publish=0,
     )
 
     db.add(nilai)
     db.commit()
     db.refresh(nilai)
 
-    return nilai
+    return {
+        "id_nilai": nilai.id_nilai,
+        "id_krs": nilai.id_krs,
+        "nilai_akhir": float(nilai.nilai_akhir),
+        "grade": grade.nama_grade,
+    }
