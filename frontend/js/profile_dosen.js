@@ -37,7 +37,7 @@ document.getElementById('profileForm').addEventListener('submit', async (e) => {
     };
 
     try {
-        const res = await fetch('http://localhost:8000/dosen/profile', {
+        const res = await fetch('http://127.0.0.1:8000/dosen/profile', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -82,7 +82,7 @@ document.getElementById('pwForm').addEventListener('submit', async (e) => {
     }
 
     try {
-        const res = await fetch('http://localhost:8000/auth/change-password', {
+        const res = await fetch('http://127.0.0.1:8000/auth/change-password', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

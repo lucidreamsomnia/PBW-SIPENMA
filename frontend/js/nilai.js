@@ -1,3 +1,5 @@
+const API_BASE = 'http://127.0.0.1:8000';
+
 const user = JSON.parse(localStorage.getItem('user') || '{}');
 if (user.nama) document.getElementById('topbarName').textContent = user.nama;
 
@@ -7,78 +9,165 @@ document.getElementById('logoutBtn').addEventListener('click', (e) => {
     window.location.href = '../pages/login.html';
 });
 
-const mahasiswaList = [
-    { nim: '2021001', nama: 'Ahmad Fauzi' },
-    { nim: '2021002', nama: 'Siti Nurhaliza' },
-    { nim: '2021003', nama: 'Budi Santoso' },
-    { nim: '2022001', nama: 'Dewi Lestari' },
-    { nim: '2022002', nama: 'Rizky Ramadhan' },
-];
+const state = {
+    krsRows: [],
+    mahasiswa: [],
+    matakuliah: [],
+};
 
-const matkulList = [
-    { kode: 'IF101', nama: 'Algoritma dan Pemrograman' },
-    { kode: 'IF102', nama: 'Basis Data' },
-    { kode: 'IF103', nama: 'Jaringan Komputer' },
-    { kode: 'IF104', nama: 'Pengembangan Web' },
-    { kode: 'IF105', nama: 'Pemrograman Mobile' },
-];
-
-function populateSelect(selectEl, data, valueKey, labelFn) {
-    selectEl.innerHTML = '<option value="">-- Pilih --</option>' +
-        data.map(d => `<option value="${d[valueKey]}">${labelFn(d)}</option>`).join('');
+function escapeHtml(value) {
+    return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
 }
 
-populateSelect(document.getElementById('selectMahasiswa'), mahasiswaList, 'nim', d => `${d.nim} - ${d.nama}`);
-populateSelect(document.getElementById('selectMatkul'), matkulList, 'kode', d => `${d.kode} - ${d.nama}`);
+function showAlert(type, message) {
+    document.getElementById('alertBox').innerHTML = `
+        <div class="alert alert-${type} py-2">${escapeHtml(message)}</div>
+    `;
+}
 
-document.getElementById('searchMahasiswa').addEventListener('input', (e) => {
-    const q = e.target.value.toLowerCase();
-    const filtered = mahasiswaList.filter(m => m.nim.includes(q) || m.nama.toLowerCase().includes(q));
-    populateSelect(document.getElementById('selectMahasiswa'), filtered, 'nim', d => `${d.nim} - ${d.nama}`);
-});
+async function apiRequest(url, options = {}) {
+    const res = await fetch(url, {
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...(options.headers || {}),
+        },
+    });
 
-document.getElementById('searchMatkul').addEventListener('input', (e) => {
-    const q = e.target.value.toLowerCase();
-    const filtered = matkulList.filter(m => m.kode.toLowerCase().includes(q) || m.nama.toLowerCase().includes(q));
-    populateSelect(document.getElementById('selectMatkul'), filtered, 'kode', d => `${d.kode} - ${d.nama}`);
-});
+    if (res.status === 204) {
+        return null;
+    }
+
+    const data = await res.json();
+    if (!res.ok) {
+        throw new Error(data.detail || 'Terjadi kesalahan pada server');
+    }
+
+    return data;
+}
+
+function uniqueBy(items, keyFn) {
+    const map = new Map();
+    items.forEach((item) => {
+        const key = keyFn(item);
+        if (!map.has(key)) {
+            map.set(key, item);
+        }
+    });
+    return [...map.values()];
+}
+
+function renderMahasiswaOptions(items) {
+    const select = document.getElementById('selectMahasiswa');
+    const currentValue = select.value;
+    select.innerHTML = '<option value="">-- Pilih Mahasiswa --</option>' +
+        items.map((item) => (
+            `<option value="${item.id_mahasiswa}">${item.nim} - ${item.nama_mahasiswa}</option>`
+        )).join('');
+    select.value = currentValue;
+}
+
+function renderMatkulOptions(items) {
+    const select = document.getElementById('selectMatkul');
+    const currentValue = select.value;
+
+    select.innerHTML =
+        '<option value="">-- Pilih Mata Kuliah --</option>' +
+        items.map((item) => (
+            `<option value="${item.id_mk}">${item.kode_mk} - ${item.nama_mk}</option>`
+        )).join('');
+
+    select.value = currentValue;
+}
+
+function applyFilters() {
+    const searchMahasiswa = document.getElementById('searchMahasiswa').value.trim().toLowerCase();
+    const searchMatkul = document.getElementById('searchMatkul').value.trim().toLowerCase();
+
+    const filteredMahasiswa = state.mahasiswa.filter((item) => (
+        !searchMahasiswa ||
+        item.nim.toLowerCase().includes(searchMahasiswa) ||
+        item.nama_mahasiswa.toLowerCase().includes(searchMahasiswa)
+    ));
+
+    const filteredMatkul = state.matakuliah.filter((item) => (
+        !searchMatkul ||
+        item.kode_mk.toLowerCase().includes(searchMatkul) ||
+        item.nama_mk.toLowerCase().includes(searchMatkul)
+    ));
+
+    renderMahasiswaOptions(filteredMahasiswa);
+    renderMatkulOptions(filteredMatkul);
+}
+
+async function loadKrsOptions() {
+    const data = await apiRequest(`${API_BASE}/krs/options`);
+    state.krsRows = data;
+    state.mahasiswa = uniqueBy(data, (item) => item.id_mahasiswa);
+    state.matakuliah = uniqueBy(data, (item) => item.id_mk);
+    applyFilters();
+}
+
+function getSelectedKrs() {
+    const idMahasiswa = parseInt(document.getElementById('selectMahasiswa').value, 10);
+    const idMatakuliah = parseInt(document.getElementById('selectMatkul').value, 10);
+
+    if (!idMahasiswa || !idMatakuliah) {
+        return null;
+    }
+
+    return state.krsRows.find((item) => (
+        item.id_mahasiswa === idMahasiswa && item.id_mk === idMatakuliah
+    ));
+}
+
+document.getElementById('searchMahasiswa').addEventListener('input', applyFilters);
+document.getElementById('searchMatkul').addEventListener('input', applyFilters);
 
 document.getElementById('simpanBtn').addEventListener('click', async () => {
-    const nim = document.getElementById('selectMahasiswa').value;
-    const kode_mk = document.getElementById('selectMatkul').value;
+    const selectedKrs = getSelectedKrs();
     const tugas = parseFloat(document.getElementById('nilaiTugas').value);
-    const uts   = parseFloat(document.getElementById('nilaiUTS').value);
-    const uas   = parseFloat(document.getElementById('nilaiUAS').value);
-    const alertBox = document.getElementById('alertBox');
+    const uts = parseFloat(document.getElementById('nilaiUTS').value);
+    const uas = parseFloat(document.getElementById('nilaiUAS').value);
 
-    if (!nim || !kode_mk) {
-        alertBox.innerHTML = `<div class="alert alert-warning py-2">Pilih mahasiswa dan mata kuliah terlebih dahulu.</div>`;
+    if (!selectedKrs) {
+        showAlert('warning', 'Pilih mahasiswa dan mata kuliah terlebih dahulu.');
         return;
     }
 
-    const nilai_akhir = (tugas * 0.3 + uts * 0.3 + uas * 0.4).toFixed(2);
+    if ([tugas, uts, uas].some((value) => Number.isNaN(value))) {
+        showAlert('warning', 'Nilai tugas, UTS, dan UAS harus diisi.');
+        return;
+    }
 
     try {
-        const res = await fetch('http://localhost:8000/nilai', {
+        await apiRequest(`${API_BASE}/nilai/`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
-            body: JSON.stringify({ nim, kode_mk, tugas, uts, uas, nilai_akhir: parseFloat(nilai_akhir) })
+            body: JSON.stringify({
+                id_krs: selectedKrs.id_krs,
+                tugas,
+                uts,
+                uas,
+            }),
         });
 
-        if (res.ok) {
-            alertBox.innerHTML = `<div class="alert alert-success py-2">Nilai berhasil disimpan! Nilai Akhir: <strong>${nilai_akhir}</strong></div>`;
-            document.getElementById('nilaiTugas').value = 0;
-            document.getElementById('nilaiUTS').value = 0;
-            document.getElementById('nilaiUAS').value = 0;
-        } else {
-            const data = await res.json();
-            alertBox.innerHTML = `<div class="alert alert-danger py-2">${data.detail || 'Gagal menyimpan nilai.'}</div>`;
-        }
-    } catch {
-        // Demo mode: show calculated result without backend
-        alertBox.innerHTML = `<div class="alert alert-info py-2">Demo: Nilai Akhir = <strong>${nilai_akhir}</strong> (backend belum terhubung)</div>`;
+        showAlert('success', 'Nilai berhasil disimpan.');
+        document.getElementById('nilaiTugas').value = 0;
+        document.getElementById('nilaiUTS').value = 0;
+        document.getElementById('nilaiUAS').value = 0;
+    } catch (err) {
+        showAlert('danger', err.message);
     }
+});
+
+loadKrsOptions().catch((err) => {
+    showAlert('danger', err.message);
 });
