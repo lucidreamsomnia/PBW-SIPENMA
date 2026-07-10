@@ -3,7 +3,16 @@ import backend.app.models
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.app.routes import nilai, whatsapp, statistik, mahasiswa, matakuliah, admin_dashboard, pengguna
+from backend.app.routes import (
+    auth,
+    nilai,
+    whatsapp,
+    statistik,
+    mahasiswa,
+    matakuliah,
+    admin_dashboard,
+    pengguna,
+)
 
 app = FastAPI(
     title="SIPENMA API",
@@ -20,6 +29,7 @@ app.add_middleware(
 )
 
 # Daftarkan semua route yang telah dibuat
+app.include_router(auth.router)
 app.include_router(nilai.router)
 app.include_router(whatsapp.router)
 app.include_router(statistik.router)
